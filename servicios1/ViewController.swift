@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class ViewController: UIViewController, UITextFieldDelegate {
     
     
@@ -47,7 +48,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
 
     @IBAction func realizarActividad(sender: AnyObject) {
-          asincrono()
+        
+   
+        if isConnectedToNetwork() == true {
+            print("Internet connection OK")
+                  asincrono()
+        } else {
+            print("Internet connection FAILED")
+
+            let mensajeAlerta = UIAlertController(title: "No tienes conexion de internet",
+                message: "Asegurate de que tu dispositivo esta conectado a internet" , preferredStyle: .Alert)
+            
+            let defaultAccion = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            let cancelAction = UIAlertAction(title: "Cancelar", style: .Cancel, handler: nil)
+            
+            mensajeAlerta.addAction(defaultAccion)
+            mensajeAlerta.addAction(cancelAction)
+            
+            presentViewController(mensajeAlerta, animated: true, completion: nil)
+            
+        }
+        
+    
     }
 
     override func viewDidLoad() {
